@@ -1,14 +1,14 @@
 IMAGE := node:18-alpine3.15
 
 setup: package.json
+	mkdir -p orig_modules/erap_core
 	docker run --rm -it -v $(shell pwd):/workdir -w /workdir $(IMAGE) /bin/sh -c "\
 		npm install \
 	"
-	make -C ../core build
-	mkdir -p orig_modules/erap_core
-	cp -r ../core/pkg/* orig_modules/erap_core
 
-build: node_modules/ orig_modules/ src/ public/
+build: node_modules/ orig_modules/ src/ public/ ../core/src/
+	make -C ../core build
+	cp -r ../core/pkg/* orig_modules/erap_core
 	docker run --rm -it -v $(shell pwd):/workdir -w /workdir $(IMAGE) /bin/sh -c "\
 		npm run build \
 	"
