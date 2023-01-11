@@ -5,5 +5,5 @@ setup: Cargo.toml
 
 build: src/ Cargo.toml
 	docker run --rm -v $(shell pwd):/workdir $(IMAGE) \
-		wasm-pack build --release --target web
+		wasm-pack build --release --target web --features wasm
 	sudo chown $(shell id -u):$(shell id -g) pkg pkg/*
