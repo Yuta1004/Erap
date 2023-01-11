@@ -1,12 +1,16 @@
 IMAGE := node:18-alpine3.15
 
+SRCS := $(shell find public/) \
+		$(shell find src/ -name "*.tsx") \
+		$(shell find ../core/src -name "*.rs")
+
 setup: package.json
 	mkdir -p orig_modules/erap_core
 	docker run --rm -it -v $(shell pwd):/workdir -w /workdir $(IMAGE) /bin/sh -c "\
 		npm install \
 	"
 
-build: node_modules/ orig_modules/ src/ public/ ../core/src/
+build: package.json $(SRCS)
 	make -C ../core build
 	cp -r ../core/pkg/* orig_modules/erap_core
 	docker run --rm -it -v $(shell pwd):/workdir -w /workdir $(IMAGE) /bin/sh -c "\
