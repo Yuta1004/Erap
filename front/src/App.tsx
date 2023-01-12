@@ -13,10 +13,12 @@ type SContextType<T> = [T, React.Dispatch<React.SetStateAction<T>>];
 
 export const WasmStatContext = createContext({});
 export const RobotArmsContext = createContext({} as SContextType<RobotArm[]>);
+export const GameStatContext = createContext({} as SContextType<Boolean>);
 
 const App = () => {
     const [wasmOk, setWasmOk] = useState<Boolean>(false);
     const [arms, setArms] = useState<RobotArm[]>([]);
+    const [gameStat, setGameStat] = useState<Boolean>(false);
 
     useEffect(() => {
         init().then(() => {
@@ -45,11 +47,14 @@ const App = () => {
                     <b>Erap</b>（Easy Robot Arm Programming）<br/>
                     実世界指向システム 課題 / 中神悠太
                 </p>
+                <p>{ "" + gameStat }</p>
             </div>
             <WasmStatContext.Provider value={ wasmOk }>
                 <RobotArmsContext.Provider value={[ arms, setArms ]}>
-                    <ArmViewer/>
-                    <Control/>
+                    <GameStatContext.Provider value={[ gameStat, setGameStat ]}>
+                        <ArmViewer/>
+                        <Control/>
+                    </GameStatContext.Provider>
                 </RobotArmsContext.Provider>
             </WasmStatContext.Provider>
         </div>

@@ -12,10 +12,11 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { gen_arm } from "erap_core";
-import { RobotArmsContext } from "../App";
+import { RobotArmsContext, GameStatContext } from "../App";
 
 const Control = () => {
     const [arms, setArms] = useContext(RobotArmsContext);
+    const [gameStat, setGameStat] = useContext(GameStatContext);
     const [listEntries, setListEntries] = useState<JSX.Element[]>([]);
 
     const createListEntries = () => {
@@ -139,6 +140,7 @@ const Control = () => {
                 <Button
                     variant="outlined"
                     size="medium"
+                    onClick={() => setGameStat(true)}
                 >
                     <PlayCircleOutlineIcon/>
                     <b>ゲーム開始</b>
@@ -146,7 +148,10 @@ const Control = () => {
                 <Button
                     variant="outlined"
                     size="medium"
-                    onClick={() => setArms([gen_arm(15.0, 45.0)])}
+                    onClick={() => {
+                        setGameStat(false);
+                        setArms([gen_arm(15.0, 45.0)]);
+                    }}
                 >
                     <RestartAltIcon/>
                     <b>リセット</b>
