@@ -68,11 +68,12 @@ mod test {
             Arm::new(10.0, -10.0)
         ];
 
-        let mut endpoint = ArmEndpoint::default();
-        for arm in arms {
-            endpoint = arm.calc_endpoint(&endpoint);
-            println!("{:?}", endpoint);
-        }
+        let endpoint = arms.iter().fold(
+            ArmEndpoint::default(),
+            |endpoint, arm| {
+                arm.calc_endpoint(&endpoint)
+            }
+        );
 
         assert!((38.265846 - endpoint.x) < f32::EPSILON);
         assert!((35.614452 - endpoint.y) < f32::EPSILON);
