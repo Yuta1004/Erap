@@ -33,11 +33,7 @@ const App = () => {
             }}
         >
             <RobotArmsContext.Provider value={[ arms, setArms ]}>
-                <ArmViewer
-                    wasmOk={ wasmOk }
-                    x0={ 0 }
-                    y0={ 0 }
-                />
+                <ArmViewer wasmOk={ wasmOk }/>
                 <Control/>
             </RobotArmsContext.Provider>
         </div>
