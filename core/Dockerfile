@@ -8,4 +8,5 @@ RUN curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh && \
     mkdir src && \
     touch src/lib.rs && \
     rustup target add wasm32-unknown-unknown && \
-    cargo build
+    cargo install wasm-bindgen-cli --version 0.2.83 && \
+    cargo build --features wasm
