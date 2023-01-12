@@ -38,10 +38,11 @@ const ArmViewer = () => {
         context!!.stroke();
     };
 
-    const drawArms = () => {
+    const drawArms = (): [number, number] => {
         // 原点
         context!!.beginPath();
         context!!.arc(...cpos(0, 0), 15, 0, Math.PI * 2, true);
+        context!!.strokeStyle = "rgba(0, 0, 0, 1.0)";
         context!!.stroke();
 
         // アーム
@@ -85,16 +86,20 @@ const ArmViewer = () => {
         context!!.fillStyle = "rgba(40, 255, 40, 1.0)";
         context!!.fill();
         context!!.stroke();
+
+        return [befX, befY];
     }
 
     const drawTargets = () => {
-        targets.forEach((pos) => {
-            const [x, y] = pos;
-            context!!.beginPath();
-            context!!.arc(...cpos(x, y), 25, 0, Math.PI * 2, true);
-            context!!.arc(...cpos(x, y), 30, 0, Math.PI * 2, true);
-            context!!.strokeStyle = "rgba(255, 0, 0, 1.0)";
-            context!!.stroke();
+        targets.forEach((pos, idx) => {
+            if (idx > 0) {
+                const [x, y] = pos;
+                context!!.beginPath();
+                context!!.arc(...cpos(x, y), 25, 0, Math.PI * 2, true);
+                context!!.arc(...cpos(x, y), 30, 0, Math.PI * 2, true);
+                context!!.strokeStyle = "rgba(255, 0, 0, 1.0)";
+                context!!.stroke();
+            }
         });
     }
 
@@ -114,16 +119,37 @@ const ArmViewer = () => {
 
     useEffect(() => {
         if (wasmOk) {
+            // 描画処理
             drawBackGround();
-            drawArms();
             drawTargets();
+            const [armX, armY] = drawArms();
+
+            // ターゲット接触判定
+            if (gameStat) {
+                var idx = 1;
+                for (; idx < targets.length; ++ idx) {
+                    const [targetX, targetY] = targets[idx];
+                    if (Math.pow(armX - targetX, 2) + Math.pow(armY - targetY, 2) < 900) {
+                        break;
+                    }
+                }
+                if (idx < targets.length) {
+                    targets.splice(idx, idx);
+                }
+
+                // ゲーム終了判定
+                if (targets.length === 1) {
+                    console.log("finish");
+                }
+            }
+            setTargets(targets);
         }
     }, [wasmOk, arms, targets]);
 
     useEffect(() => {
         var newTargets = [];
         if (gameStat) {
-            for (var cnt = 0; cnt < 5; ++ cnt) {
+            for (var cnt = 0; cnt < 6; ++ cnt) {
                 const target: [number, number] = [
                     (Math.random()*centerX*2 - centerX) * 0.9,
                     (Math.random()*centerY*2 - centerY) * 0.9
