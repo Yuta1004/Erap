@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 
 import init, { gen_arm } from "erap_core";
 import ArmViewer from "./components/ArmViewer";
+import Control from "./components/Control";
 
 const App = () => {
     const [wasmOk, setWasmOk] = useState(false);
@@ -34,14 +35,7 @@ const App = () => {
                 y0={ 0 }
                 arms={ arms }
             />
-            <Box
-                sx={{
-                    boxSizing: "border-box",
-                    WebkitBoxSizing: "border-box",
-                    flexBasis: "30%",
-                    height: "100%"
-                }}
-            />
+            <Control/>
         </div>
     );
 }
