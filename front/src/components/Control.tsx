@@ -85,6 +85,7 @@ const Control = () => {
                         </Stack>
                     </Stack>
                 </ListItem>
+                <Divider/>
             </>);
         });
     }
