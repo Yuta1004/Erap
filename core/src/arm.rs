@@ -7,6 +7,7 @@ pub struct ArmEndpoint {
     theta: f32      // degree
 }
 
+#[allow(dead_code)]
 impl ArmEndpoint {
     pub fn new(x: f32, y: f32, theta: f32) -> ArmEndpoint {
         ArmEndpoint { x, y, theta }
@@ -29,6 +30,7 @@ pub struct Arm {
     theta: f32      // degree
 }
 
+#[allow(dead_code)]
 impl Arm {
     pub fn new(length: f32, theta: f32) -> Arm {
         Arm { length, theta }
