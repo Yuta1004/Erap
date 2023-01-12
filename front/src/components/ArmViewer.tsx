@@ -74,6 +74,13 @@ const ArmViewer = () => {
             befX = endpoint.x*5;
             befY = endpoint.y*5;
         }
+
+        // アームの最先端
+        context!!.beginPath();
+        context!!.arc(...cpos(befX, befY), 20, 0, Math.PI * 2, true);
+        context!!.fillStyle = "rgba(40, 255, 40, 1.0)";
+        context!!.fill();
+        context!!.stroke();
     }
 
     useEffect(() => {
