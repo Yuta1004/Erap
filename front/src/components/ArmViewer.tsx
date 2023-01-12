@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { calc_endpoints } from "erap_core";
 import { RobotArmsContext, WasmStatContext, GameStatContext } from "../App";
 
-const ArmViewer = () => {
+const ArmViewer = (props: { gameFinCallBack: ()=>void }) => {
     const [centerX, setCenterX] = useState(0.0);
     const [centerY, setCenterY] = useState(0.0);
     const [context, setContext] = useState<CanvasRenderingContext2D|null>(null);
@@ -139,7 +139,7 @@ const ArmViewer = () => {
 
                 // ゲーム終了判定
                 if (targets.length === 1) {
-                    console.log("finish");
+                    props.gameFinCallBack();
                 }
             }
             setTargets(targets);

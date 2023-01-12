@@ -20,6 +20,10 @@ const App = () => {
     const [arms, setArms] = useState<RobotArm[]>([]);
     const [gameStat, setGameStat] = useState<Boolean>(false);
 
+    const gameFinCallback = () => {
+        setGameStat(false);
+    }
+
     useEffect(() => {
         init().then(() => {
             setWasmOk(true);
@@ -52,7 +56,7 @@ const App = () => {
             <WasmStatContext.Provider value={ wasmOk }>
                 <RobotArmsContext.Provider value={[ arms, setArms ]}>
                     <GameStatContext.Provider value={[ gameStat, setGameStat ]}>
-                        <ArmViewer/>
+                        <ArmViewer gameFinCallBack={ gameFinCallback }/>
                         <Control/>
                     </GameStatContext.Provider>
                 </RobotArmsContext.Provider>
