@@ -20,11 +20,7 @@ const App = () => {
     useEffect(() => {
         init().then(() => {
             setWasmOk(true);
-            setArms([
-                gen_arm(20.0,  25.0),
-                gen_arm(18.0,  40.0),
-                gen_arm(35.0, -30.0)
-            ]);
+            setArms([gen_arm(15.0, 45.0)]);
         });
     }, []);
 

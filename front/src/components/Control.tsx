@@ -9,6 +9,7 @@ import Divider from "@mui/material/Divider";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
+import { gen_arm } from "erap_core";
 import { RobotArmsContext } from "../App";
 
 const Control = () => {
@@ -132,6 +133,10 @@ const Control = () => {
                     variant="outlined"
                     size="small"
                     sx={{ width: "80%" }}
+                    onClick={() => {
+                        arms.push(gen_arm(15.0, 15.0));
+                        setArms([...arms]);
+                    }}
                 >
                     アームを追加する
                 </Button>
