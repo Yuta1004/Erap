@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 
 import init, {  } from "erap_core";
+import ArmViewer from "./components/ArmViewer";
 
 const App = () => {
     useEffect(() => {
@@ -17,14 +18,7 @@ const App = () => {
                 display: "flex"
             }}
         >
-            <Box
-                sx={{
-                    boxSizing: "border-box",
-                    WebkitBoxSizing: "border-box",
-                    width: "100%",
-                    height: "100%"
-                }}
-            />
+            <ArmViewer/>
             <Box
                 sx={{
                     boxSizing: "border-box",
