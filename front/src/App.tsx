@@ -4,13 +4,18 @@ import init, { gen_arm } from "erap_core";
 import ArmViewer from "./components/ArmViewer";
 import Control from "./components/Control";
 
+interface RobotArm {
+    length: number,
+    theta: number
+}
+
 type SContextType<T> = [T, React.Dispatch<React.SetStateAction<T>>];
 
-export const RobotArmsContext = createContext({} as SContextType<{}[]>);
+export const RobotArmsContext = createContext({} as SContextType<RobotArm[]>);
 
 const App = () => {
     const [wasmOk, setWasmOk] = useState(false);
-    const [arms, setArms] = useState<{}[]>([]);
+    const [arms, setArms] = useState<RobotArm[]>([]);
 
     useEffect(() => {
         init().then(() => {

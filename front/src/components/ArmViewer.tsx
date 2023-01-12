@@ -21,6 +21,9 @@ const ArmViewer = (props: { wasmOk: Boolean }) => {
     };
 
     const drawBackGround = () => {
+        // 背景
+        context!!.clearRect(0, 0, centerX*2, centerY*2);
+
         // X軸
         context!!.beginPath();
         context!!.moveTo(...cpos(-centerX, 0));
