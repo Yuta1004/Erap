@@ -57,10 +57,10 @@ const ArmViewer = (props: { wasmOk: Boolean }) => {
         const parentDiv = document.getElementById("viewer");
         const canvas = document.getElementById("canvas") as HTMLCanvasElement;
         if (parentDiv != null && canvas != null) {
-            canvas.width = parentDiv.offsetWidth;
-            canvas.height = parentDiv.offsetHeight;
-            setCenterX(parentDiv.offsetWidth / 2);
-            setCenterY(parentDiv.offsetHeight / 2);
+            canvas.width = parentDiv.clientWidth;
+            canvas.height = parentDiv.clientHeight;
+            setCenterX(parentDiv.clientWidth / 2);
+            setCenterY(parentDiv.clientHeight / 2);
 
             const canvasContext = canvas.getContext("2d");
             setContext(canvasContext);
@@ -82,14 +82,11 @@ const ArmViewer = (props: { wasmOk: Boolean }) => {
                 WebkitBoxSizing: "border-box",
                 flexBasis: "70%",
                 height: "100%",
-                border: "solid 1px black"
+                border: "solid 1px black",
+                overflow: "hidden"
             }}
         >
-            <canvas
-                id="canvas"
-                width="100%"
-                height="100%"
-            />
+            <canvas id="canvas"/>
         </div>
     );
 }
