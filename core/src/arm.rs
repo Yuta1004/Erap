@@ -1,4 +1,6 @@
-#[derive(Debug, Default)]
+use serde::{Serialize, Deserialize};
+
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct ArmEndpoint {
     x: f32,
     y: f32,
@@ -6,7 +8,7 @@ pub struct ArmEndpoint {
 }
 
 impl ArmEndpoint {
-    pub fn calc_next_endpoint(&self, next_arm: &Arm) -> ArmEndpoint {
+    fn calc_next_endpoint(&self, next_arm: &Arm) -> ArmEndpoint {
         let theta = self.theta + next_arm.theta;
         let rtheta = theta.to_radians();
         ArmEndpoint {
@@ -17,7 +19,7 @@ impl ArmEndpoint {
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct Arm {
     length: f32,
     theta: f32      // degree
