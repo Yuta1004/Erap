@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 
 import { calc_endpoints } from "erap_core";
+import { RobotArmsContext } from "../App";
 
 interface ArmViewerProps {
     wasmOk: Boolean,
     x0: number,
-    y0: number,
-    arms: {}
+    y0: number
 }
 
 interface ArmEndpoint {
@@ -19,6 +19,8 @@ const ArmViewer = (props: ArmViewerProps) => {
     const [centerX, setCenterX] = useState(0.0);
     const [centerY, setCenterY] = useState(0.0);
     const [context, setContext] = useState<CanvasRenderingContext2D|null>(null);
+
+    const [arms, setArms] = useContext(RobotArmsContext);
 
     const cpos = (x: number, y: number): [number, number] => {
         return [centerX + x, centerY - y];
@@ -41,7 +43,7 @@ const ArmViewer = (props: ArmViewerProps) => {
     };
 
     const drawArms = () => {
-        calc_endpoints(0.0, 0.0, props.arms).forEach((endpoint: ArmEndpoint) => {
+        calc_endpoints(0.0, 0.0, arms).forEach((endpoint: ArmEndpoint) => {
             context!!.beginPath();
             context!!.arc(...cpos(endpoint.x*5, endpoint.y*5), 15, 0, Math.PI * 2, true);
             context!!.stroke();
@@ -67,7 +69,7 @@ const ArmViewer = (props: ArmViewerProps) => {
             drawBackGround();
             drawArms();
         }
-    }, [props.wasmOk, props.x0, props.y0, props.arms]);
+    }, [props.wasmOk, props.x0, props.y0, arms]);
 
     return (
         <div

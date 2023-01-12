@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { useEffect, useState, createContext } from "react";
 
 import init, { gen_arm } from "erap_core";
 import ArmViewer from "./components/ArmViewer";
 import Control from "./components/Control";
+
+type SContextType<T> = [T, React.Dispatch<React.SetStateAction<T>>];
+
+export const RobotArmsContext = createContext({} as SContextType<{}[]>);
 
 const App = () => {
     const [wasmOk, setWasmOk] = useState(false);
@@ -29,13 +32,14 @@ const App = () => {
                 display: "flex"
             }}
         >
-            <ArmViewer
-                wasmOk={ wasmOk }
-                x0={ 0 }
-                y0={ 0 }
-                arms={ arms }
-            />
-            <Control/>
+            <RobotArmsContext.Provider value={[ arms, setArms ]}>
+                <ArmViewer
+                    wasmOk={ wasmOk }
+                    x0={ 0 }
+                    y0={ 0 }
+                />
+                <Control/>
+            </RobotArmsContext.Provider>
         </div>
     );
 }
