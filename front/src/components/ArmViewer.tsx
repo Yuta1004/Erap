@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 
 import { calc_endpoints } from "erap_core";
-import { RobotArmsContext, WasmStatContext } from "../App";
+import { RobotArmsContext, WasmStatContext, GameStatContext } from "../App";
 
 const ArmViewer = () => {
     const [centerX, setCenterX] = useState(0.0);
@@ -10,6 +10,9 @@ const ArmViewer = () => {
 
     const wasmOk = useContext(WasmStatContext);
     const [arms, setArms] = useContext(RobotArmsContext);
+
+    const [gameStat, setGameStat] = useContext(GameStatContext);
+    const [targets, setTargets] = useState<[number, number][]>([]);
 
     const cpos = (x: number, y: number): [number, number] => {
         return [centerX + x, centerY - y];
@@ -24,6 +27,7 @@ const ArmViewer = () => {
         context!!.moveTo(...cpos(-centerX, 0));
         context!!.lineTo(...cpos(centerX, 0));
         context!!.closePath();
+        context!!.strokeStyle = "rgba(0, 0, 0, 1.0)";
         context!!.stroke();
 
         // Y軸
@@ -83,6 +87,17 @@ const ArmViewer = () => {
         context!!.stroke();
     }
 
+    const drawTargets = () => {
+        targets.forEach((pos) => {
+            const [x, y] = pos;
+            context!!.beginPath();
+            context!!.arc(...cpos(x, y), 25, 0, Math.PI * 2, true);
+            context!!.arc(...cpos(x, y), 30, 0, Math.PI * 2, true);
+            context!!.strokeStyle = "rgba(255, 0, 0, 1.0)";
+            context!!.stroke();
+        });
+    }
+
     useEffect(() => {
         const parentDiv = document.getElementById("viewer");
         const canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -101,8 +116,23 @@ const ArmViewer = () => {
         if (wasmOk) {
             drawBackGround();
             drawArms();
+            drawTargets();
         }
-    }, [wasmOk, arms]);
+    }, [wasmOk, arms, targets]);
+
+    useEffect(() => {
+        var newTargets = [];
+        if (gameStat) {
+            for (var cnt = 0; cnt < 5; ++ cnt) {
+                const target: [number, number] = [
+                    (Math.random()*centerX*2 - centerX) * 0.9,
+                    (Math.random()*centerY*2 - centerY) * 0.9
+                ];
+                newTargets.push(target);
+            }
+        }
+        setTargets(newTargets);
+    }, [gameStat]);
 
     return (
         <div
