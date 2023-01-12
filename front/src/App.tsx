@@ -11,10 +11,11 @@ interface RobotArm {
 
 type SContextType<T> = [T, React.Dispatch<React.SetStateAction<T>>];
 
+export const WasmStatContext = createContext({});
 export const RobotArmsContext = createContext({} as SContextType<RobotArm[]>);
 
 const App = () => {
-    const [wasmOk, setWasmOk] = useState(false);
+    const [wasmOk, setWasmOk] = useState<Boolean>(false);
     const [arms, setArms] = useState<RobotArm[]>([]);
 
     useEffect(() => {
@@ -33,10 +34,12 @@ const App = () => {
                 display: "flex"
             }}
         >
-            <RobotArmsContext.Provider value={[ arms, setArms ]}>
-                <ArmViewer wasmOk={ wasmOk }/>
-                <Control/>
-            </RobotArmsContext.Provider>
+            <WasmStatContext.Provider value={ wasmOk }>
+                <RobotArmsContext.Provider value={[ arms, setArms ]}>
+                    <ArmViewer/>
+                    <Control/>
+                </RobotArmsContext.Provider>
+            </WasmStatContext.Provider>
         </div>
     );
 }

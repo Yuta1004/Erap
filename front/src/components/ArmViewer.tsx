@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 
 import { calc_endpoints } from "erap_core";
-import { RobotArmsContext } from "../App";
+import { RobotArmsContext, WasmStatContext } from "../App";
 
 interface ArmEndpoint {
     x: number,
@@ -9,11 +9,12 @@ interface ArmEndpoint {
     theta: number
 }
 
-const ArmViewer = (props: { wasmOk: Boolean }) => {
+const ArmViewer = () => {
     const [centerX, setCenterX] = useState(0.0);
     const [centerY, setCenterY] = useState(0.0);
     const [context, setContext] = useState<CanvasRenderingContext2D|null>(null);
 
+    const wasmOk = useContext(WasmStatContext);
     const [arms, setArms] = useContext(RobotArmsContext);
 
     const cpos = (x: number, y: number): [number, number] => {
@@ -68,11 +69,11 @@ const ArmViewer = (props: { wasmOk: Boolean }) => {
     }, []);
 
     useEffect(() => {
-        if (props.wasmOk) {
+        if (wasmOk) {
             drawBackGround();
             drawArms();
         }
-    }, [props.wasmOk, arms]);
+    }, [wasmOk, arms]);
 
     return (
         <div
