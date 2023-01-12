@@ -100,7 +100,9 @@ const Control = () => {
                 WebkitBoxSizing: "border-box",
                 flexBasis: "30%",
                 height: "100%",
-                overflow: "hidden"
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column"
             }}
         >
             <Stack
@@ -143,7 +145,13 @@ const Control = () => {
                 </Button>
             </Stack>
             <Divider/>
-            <List>
+            <List
+                sx={{
+                    overflowX: "hidden",
+                    overflowY: "auto",
+                    flexGrow: 1
+                }}
+            >
                 {[ ...listEntries ]}
             </List>
         </Box>
