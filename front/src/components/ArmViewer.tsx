@@ -40,6 +40,12 @@ const ArmViewer = (props: { wasmOk: Boolean }) => {
     };
 
     const drawArms = () => {
+        // 原点
+        context!!.beginPath();
+        context!!.arc(...cpos(0, 0), 15, 0, Math.PI * 2, true);
+        context!!.stroke();
+
+        // アーム
         calc_endpoints(0.0, 0.0, arms).forEach((endpoint: ArmEndpoint) => {
             context!!.beginPath();
             context!!.arc(...cpos(endpoint.x*5, endpoint.y*5), 15, 0, Math.PI * 2, true);
