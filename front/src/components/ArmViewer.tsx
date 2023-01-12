@@ -75,8 +75,9 @@ const ArmViewer = (props: ArmViewerProps) => {
             style={{
                 boxSizing: "border-box",
                 WebkitBoxSizing: "border-box",
-                width: "100%",
-                height: "100%"
+                flexBasis: "70%",
+                height: "100%",
+                border: "solid 1px black"
             }}
         >
             <canvas

@@ -38,7 +38,7 @@ const App = () => {
                 sx={{
                     boxSizing: "border-box",
                     WebkitBoxSizing: "border-box",
-                    width: "100%",
+                    flexBasis: "30%",
                     height: "100%"
                 }}
             />
