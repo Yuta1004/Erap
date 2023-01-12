@@ -46,7 +46,7 @@ const Control = () => {
                                 right: "10px"
                             }}
                             onClick={() => {
-                                arms.splice(idx, idx);
+                                arms.splice(idx, 1);
                                 setArms([...arms]);
                             }}
                         >

@@ -134,7 +134,7 @@ const ArmViewer = () => {
                     }
                 }
                 if (idx < targets.length) {
-                    targets.splice(idx, idx);
+                    targets.splice(idx, 1);
                 }
 
                 // ゲーム終了判定
