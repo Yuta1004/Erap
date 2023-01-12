@@ -3,12 +3,6 @@ import { useEffect, useState, useContext } from "react";
 import { calc_endpoints } from "erap_core";
 import { RobotArmsContext, WasmStatContext } from "../App";
 
-interface ArmEndpoint {
-    x: number,
-    y: number,
-    theta: number
-}
-
 const ArmViewer = () => {
     const [centerX, setCenterX] = useState(0.0);
     const [centerY, setCenterY] = useState(0.0);
