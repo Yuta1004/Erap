@@ -47,11 +47,39 @@ const ArmViewer = () => {
         context!!.stroke();
 
         // アーム
-        calc_endpoints(0.0, 0.0, arms).forEach((endpoint: ArmEndpoint) => {
+        var befX = 0, befY = 0;
+        const endpoints = calc_endpoints(0.0, 0.0, arms);
+        for (var idx = 0; idx < endpoints.length; ++ idx) {
+            const endpoint = endpoints[idx];
+
+            // 円
             context!!.beginPath();
             context!!.arc(...cpos(endpoint.x*5, endpoint.y*5), 15, 0, Math.PI * 2, true);
             context!!.stroke();
-        });
+
+            // 接線1
+            const diffX1 = Math.cos((endpoint.theta+90) * (Math.PI / 180)) * 15;
+            const diffY1 = Math.sin((endpoint.theta+90) * (Math.PI / 180)) * 15;
+
+            context!!.beginPath();
+            context!!.moveTo(...cpos(befX+diffX1, befY+diffY1));
+            context!!.lineTo(...cpos(endpoint.x*5+diffX1, endpoint.y*5+diffY1));
+            context!!.closePath();
+            context!!.stroke();
+
+            // 接線2
+            const diffX2 = Math.cos((endpoint.theta-90) * (Math.PI / 180)) * 15;
+            const diffY2 = Math.sin((endpoint.theta-90) * (Math.PI / 180)) * 15;
+
+            context!!.beginPath();
+            context!!.moveTo(...cpos(befX+diffX2, befY+diffY2));
+            context!!.lineTo(...cpos(endpoint.x*5+diffX2, endpoint.y*5+diffY2));
+            context!!.closePath();
+            context!!.stroke();
+
+            befX = endpoint.x*5;
+            befY = endpoint.y*5;
+        }
     }
 
     useEffect(() => {
