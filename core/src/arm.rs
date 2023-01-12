@@ -8,6 +8,10 @@ pub struct ArmEndpoint {
 }
 
 impl ArmEndpoint {
+    pub fn new(x: f32, y: f32, theta: f32) -> ArmEndpoint {
+        ArmEndpoint { x, y, theta }
+    }
+
     fn calc_next_endpoint(&self, next_arm: &Arm) -> ArmEndpoint {
         let theta = self.theta + next_arm.theta;
         let rtheta = theta.to_radians();
