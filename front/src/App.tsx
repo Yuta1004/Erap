@@ -34,6 +34,18 @@ const App = () => {
                 display: "flex"
             }}
         >
+            <div
+                style={{
+                    position: "absolute",
+                    top: "0px",
+                    left: "10px"
+                }}
+            >
+                <p>
+                    <b>Erap</b>（Easy Robot Arm Programming）<br/>
+                    実世界指向システム 課題 / 中神悠太
+                </p>
+            </div>
             <WasmStatContext.Provider value={ wasmOk }>
                 <RobotArmsContext.Provider value={[ arms, setArms ]}>
                     <ArmViewer/>
