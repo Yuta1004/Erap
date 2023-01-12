@@ -59,10 +59,14 @@ const Control = () => {
                                 padding: "5px"
                             }}
                         >
-                            長さ（ { arm.length } ）：
+                            長さ（ { arm.length } ）
                             <input
                                 id={ "length-" + idx }
-                                style={{ width: "60%" }}
+                                style={{
+                                    width: "60%",
+                                    position: "absolute",
+                                    right: "5%"
+                                }}
                                 type="range"
                                 min={ 10 }
                                 max={ 80 }
@@ -83,10 +87,14 @@ const Control = () => {
                                 padding: "5px"
                             }}
                         >
-                            角度（ { arm.theta } ）：
+                            角度（ { arm.theta } ）
                             <input
                                 id={ "theta-" + idx }
-                                style={{ width: "60%" }}
+                                style={{
+                                    width: "60%",
+                                    position: "absolute",
+                                    right: "5%"
+                                }}
                                 type="range"
                                 min={ -360 }
                                 max={ 360 }
