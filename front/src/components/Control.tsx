@@ -146,6 +146,7 @@ const Control = () => {
                 <Button
                     variant="outlined"
                     size="medium"
+                    onClick={() => setArms([gen_arm(15.0, 45.0)])}
                 >
                     <RestartAltIcon/>
                     <b>リセット</b>
