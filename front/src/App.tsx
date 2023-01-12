@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
+import { Box } from "@mui/material";
 
-import init, { test_wasm } from "erap_core";
+import init, {  } from "erap_core";
 
 const App = () => {
-    const [msg, setMsg] = useState("Wasm modules are not initialzed yet");
-
     useEffect(() => {
-        init().then(() => {
-            setMsg(test_wasm("Erap"));
-        });
+        init().then(() => {});
     }, []);
 
     return (
@@ -16,10 +13,26 @@ const App = () => {
             className="container"
             style={{
                 width: "100vw",
-                height: "100vh"
+                height: "100vh",
+                display: "flex"
             }}
         >
-            { msg }
+            <Box
+                sx={{
+                    boxSizing: "border-box",
+                    WebkitBoxSizing: "border-box",
+                    width: "100%",
+                    height: "100%"
+                }}
+            />
+            <Box
+                sx={{
+                    boxSizing: "border-box",
+                    WebkitBoxSizing: "border-box",
+                    width: "100%",
+                    height: "100%"
+                }}
+            />
         </div>
     );
 }
