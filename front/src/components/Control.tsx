@@ -5,9 +5,11 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { gen_arm } from "erap_core";
 import { RobotArmsContext } from "../App";
@@ -35,6 +37,20 @@ const Control = () => {
                         }}
                     >
                         <b>アーム #{idx+1}</b>
+                        <IconButton
+                            size="small"
+                            sx={{
+                                position: "absolute",
+                                top: "-10px",
+                                right: "10px"
+                            }}
+                            onClick={() => {
+                                arms.splice(idx, idx);
+                                setArms([...arms]);
+                            }}
+                        >
+                            <DeleteIcon/>
+                        </IconButton>
                         <Stack
                             direction="row"
                             spacing={10}
