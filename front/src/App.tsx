@@ -24,7 +24,7 @@ const App = () => {
     const [gameTimer, setGameTimer] = useState<NodeJS.Timer>();
 
     const gameFinCallback = () => {
-        alert("!!CONGRATULATIONS!!\nYou're time " + gameTime + "s!");
+        alert("!!CONGRATULATIONS!!\nTime : " + gameTime + "s!");
         setGameStat(false);
         clearInterval(gameTimer);
     }
